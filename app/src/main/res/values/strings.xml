@@ -5,6 +5,8 @@
     <string name="homepage_textview_description">Track and Manage your expenses!</string>
     <string name="homepage_button_view_all_expense">View all of your expenses</string>
     <string name="homepage_button_view_expense_by_month">View all of expense by month</string>
+    <!--    Strings used for untracked_expenses-->
+    <string name="untracked_expenses_textview_description">Let\'s Manage your untagged expenses!</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
