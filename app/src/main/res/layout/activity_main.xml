@@ -17,11 +17,48 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp"
             android:layout_marginStart="10dp"
-            android:text="Track your expenses!"
+            android:text="@string/homepage_textview_description"
             android:textColor="@color/white"
-            android:textSize="48sp"
+            android:textSize="44sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textview_homepage_description">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/homepage_button_view_all_expenses"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:background="@color/button_green"
+                android:ellipsize="none"
+                android:text="@string/homepage_button_view_all_expense"
+                android:textColor="@color/white" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/homepage_button_view_monthly_expense"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:background="@color/button_green"
+                android:text="@string/homepage_button_view_expense_by_month"
+                android:textColor="@color/white"
+                />
+
+        </LinearLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
