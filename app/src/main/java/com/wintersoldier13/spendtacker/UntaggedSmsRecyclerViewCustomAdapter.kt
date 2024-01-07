@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class UntaggedSmsRecyclerViewCustomAdapter(private val dataSet: ArrayList<UntrackedExpensesActivity.filteredOutSms>) :
+class UntaggedSmsRecyclerViewCustomAdapter(private val dataSet: ArrayList<UntrackedExpensesListActivity.filteredOutSms>) :
     RecyclerView.Adapter<UntaggedSmsRecyclerViewCustomAdapter.ViewHolder>() {
 
     /**
@@ -45,12 +45,20 @@ class UntaggedSmsRecyclerViewCustomAdapter(private val dataSet: ArrayList<Untrac
         val date: String =
             "${dataSet[position].day}/${dataSet[position].month}/${dataSet[position].year}"
 
+        println("Setting onBindViewHolder $date")
         viewHolder.untrackedExpenseDate.text = date
         viewHolder.untrackedExpenseBody.text = dataSet[position].body
-        viewHolder.untrackedExpenseAmount.text = "${dataSet[position].amount}"
+        viewHolder.untrackedExpenseAmount.text = "Rs. ${dataSet[position].amount}"
+
+        viewHolder.itemView.setOnClickListener{
+//            TODO : Handle onClick with a new event
+        }
     }
 
     // Return the size of your dataset (invoked by the layout manager)
-    override fun getItemCount() = dataSet.size
+    override fun getItemCount() :Int {
+        println(">>>> Dataset size: ${dataSet.size}")
+        return dataSet.size
+    }
 
 }

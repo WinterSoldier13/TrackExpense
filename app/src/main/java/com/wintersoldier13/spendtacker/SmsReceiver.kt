@@ -3,6 +3,7 @@ package com.wintersoldier13.spendtacker
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.BroadcastReceiver
+import kotlin.random.Random;
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
@@ -21,15 +22,20 @@ class SmsReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context?, intent: Intent?) {
         if (Telephony.Sms.Intents.SMS_RECEIVED_ACTION == intent?.action) {
+            var body = ""
+            val currentDate = LocalDate.now()
+            val date = currentDate.dayOfMonth
+            val month = currentDate.monthValue
+            val year = currentDate.year
+            var sender = "";
+
             for (smsMessage: SmsMessage in Telephony.Sms.Intents.getMessagesFromIntent(intent)) {
-                val body = smsMessage.messageBody
 //                TODO : Filter out only the transaction messages
-//                TODO : Extact the amount
-                val currentDate = LocalDate.now()
-                val date = currentDate.dayOfMonth
-                val month = currentDate.monthValue
-                val year = currentDate.year
-                val sender = smsMessage.originatingAddress;
+                body += smsMessage.messageBody
+                sender = smsMessage.originatingAddress!!;
+            }
+//                TODO : Extract the amount
+                val amount = Random.nextInt(100, 1000)
                 val db = DatabaseHelper(context!!).writableDatabase
 
                 val values = ContentValues().apply {
@@ -38,6 +44,7 @@ class SmsReceiver : BroadcastReceiver() {
                     put(FilteredSms.COLUMN_NAME_YEAR, year)
                     put(FilteredSms.COLUMN_NAME_SENDER, sender)
                     put(FilteredSms.COLUMN_NAME_BODY, body)
+                    put(FilteredSms.COLUMN_NAME_AMOUNT, amount)
                 }
 
 //                insert a new row into the database
@@ -53,7 +60,6 @@ class SmsReceiver : BroadcastReceiver() {
                     .build()
                 notificationManager.notify(1, notification)
 
-            }
         }
     }
 
