@@ -4,6 +4,7 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.provider.BaseColumns
+import android.provider.Telephony.Sms
 import com.wintersoldier13.spendtacker.schema.SmsRegex;
 import com.wintersoldier13.spendtacker.schema.FilteredSms;
 import com.wintersoldier13.spendtacker.schema.SmsTag
@@ -24,8 +25,6 @@ class DatabaseHelper(context: Context) :
         db.execSQL(createFilteredSmsTable())
 //        Create Table mapping SMS with Tags
         db.execSQL(createSmsTagTable())
-//        Create a table to store known tags
-        db.execSQL(createTagTable())
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
@@ -52,7 +51,7 @@ class DatabaseHelper(context: Context) :
                 "${FilteredSms.COLUMN_NAME_YEAR} INTEGER," +
                 "${FilteredSms.COLUMN_NAME_SENDER} TEXT," +
                 "${FilteredSms.COLUMN_NAME_BODY} TEXT," +
-                "${FilteredSms.COLUMN_NAME_AMOUNT} INTEGER" +
+                "${FilteredSms.COLUMN_NAME_AMOUNT} REAL" +
                 ")";
     }
 
@@ -61,12 +60,10 @@ class DatabaseHelper(context: Context) :
                 "${BaseColumns._ID} INTEGER PRIMARY KEY," +
                 "${SmsTag.COLUMN_NAME_SMS_ID} INTEGER," +
                 "${SmsTag.COLUMN_NAME_TAG} TEXT," +
-                "${SmsTag.COLUMN_NAME_EXPLANATION} TEXT" +
+                "${SmsTag.COLUMN_NAME_EXPLANATION} TEXT," +
+                "${SmsTag.COLUMN_NAME_UPDATED_AMOUNT} REAL," +
+                "${SmsTag.COLUMN_NAME_IS_CREDIT_CARD} INTEGER" +
                 ")";
     }
-    private fun createTagTable(): String {
-        return "CREATE TABLE ${Tag.TABLE_NAME} (" +
-        "${Tag.COLUMN_NAME_TAG} TEXT" +
-        ")";
-    }
+
 }

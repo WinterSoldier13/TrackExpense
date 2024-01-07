@@ -7,4 +7,6 @@ object SmsTag : BaseColumns {
    const val COLUMN_NAME_SMS_ID = "SMS_ID";
    const val COLUMN_NAME_TAG = "TAG";
    const val COLUMN_NAME_EXPLANATION = "EXPLANATION";
+   const val COLUMN_NAME_UPDATED_AMOUNT = "UPDATED_AMT";
+   const val COLUMN_NAME_IS_CREDIT_CARD = "CREDIT_CARD";
 }

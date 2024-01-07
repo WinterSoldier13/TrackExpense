@@ -2,39 +2,55 @@ package com.wintersoldier13.spendtacker
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wintersoldier13.spendtacker.schema.FilteredSms
 import com.wintersoldier13.spendtacker.schema.SmsTag
 
 class UntrackedExpensesListActivity : AppCompatActivity() {
+    private lateinit var recyclerViewUntrackedExpenses: RecyclerView;
+    private lateinit var adapter: UntaggedSmsRecyclerViewCustomAdapter;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_untracked_expenses_list)
 
-        val recyclerViewUntrackedExpenses: RecyclerView =
+        recyclerViewUntrackedExpenses =
             findViewById(R.id.untracked_expenses_recyclerview_item_list)
         val linearLayoutManager: LinearLayoutManager = LinearLayoutManager(this)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
         recyclerViewUntrackedExpenses.layoutManager = linearLayoutManager
 //        get the untracked expenses from the database
-        val untrackedExpenses = getUntrackedExpenses()
-        recyclerViewUntrackedExpenses.adapter =
-            UntaggedSmsRecyclerViewCustomAdapter(untrackedExpenses)
+        try {
+            val untrackedExpenses = getUntrackedExpenses()
+            adapter = UntaggedSmsRecyclerViewCustomAdapter(untrackedExpenses)
+            recyclerViewUntrackedExpenses.adapter = adapter
+        } catch (e: Exception) {
+            System.err.println(e)
+        }
+    }
 
+    override fun onResume() {
+        super.onResume()
+
+        val linearLayoutManager: LinearLayoutManager = LinearLayoutManager(this)
+        linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
+        recyclerViewUntrackedExpenses.layoutManager = linearLayoutManager
+//        get the untracked expenses from the database
+        try {
+            val untrackedExpenses = getUntrackedExpenses()
+            adapter = UntaggedSmsRecyclerViewCustomAdapter(untrackedExpenses)
+            recyclerViewUntrackedExpenses.adapter = adapter
+        } catch (e: Exception) {
+            System.err.println(e)
+        }
     }
 
     private fun getUntrackedExpenses(): ArrayList<filteredOutSms> {
         println(">>>>>>>> Extracting UNTAGGED SMS")
         val db = DatabaseHelper(this).readableDatabase
-        val query: String = "SELECT " +
-                "${FilteredSms.COLUMN_NAME_DAY}, " +
-                "${FilteredSms.COLUMN_NAME_MONTH}, " +
-                "${FilteredSms.COLUMN_NAME_YEAR}, " +
-                "${FilteredSms.COLUMN_NAME_BODY}, " +
-                "${FilteredSms.COLUMN_NAME_AMOUNT}, " +
-                "_id "
-        " FROM " +
+        val query: String = "SELECT *" +
+                " FROM " +
                 "${FilteredSms.TABLE_NAME} " +
                 "WHERE " +
                 "${FilteredSms.TABLE_NAME}._id " +

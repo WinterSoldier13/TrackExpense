@@ -1,20 +1,22 @@
 package com.wintersoldier13.spendtacker
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class UntaggedSmsRecyclerViewCustomAdapter(private val dataSet: ArrayList<UntrackedExpensesListActivity.filteredOutSms>) :
+class UntaggedSmsRecyclerViewCustomAdapter(
+    private val dataSet: ArrayList<UntrackedExpensesListActivity.filteredOutSms>
+) :
     RecyclerView.Adapter<UntaggedSmsRecyclerViewCustomAdapter.ViewHolder>() {
-
     /**
      * Provide a reference to the type of views that you are using
      * (custom ViewHolder)
      */
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-
         val untrackedExpenseDate: TextView
         val untrackedExpenseBody: TextView
         val untrackedExpenseAmount: TextView
@@ -39,7 +41,6 @@ class UntaggedSmsRecyclerViewCustomAdapter(private val dataSet: ArrayList<Untrac
 
     // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
         val date: String =
@@ -50,13 +51,17 @@ class UntaggedSmsRecyclerViewCustomAdapter(private val dataSet: ArrayList<Untrac
         viewHolder.untrackedExpenseBody.text = dataSet[position].body
         viewHolder.untrackedExpenseAmount.text = "Rs. ${dataSet[position].amount}"
 
-        viewHolder.itemView.setOnClickListener{
+        viewHolder.itemView.setOnClickListener {
 //            TODO : Handle onClick with a new event
+            val intent: Intent = Intent(viewHolder.itemView.context, AssignTagActivity::class.java)
+            intent.putExtra("sms_id", dataSet[position].sms_id)
+
+            viewHolder.itemView.context.startActivity(intent)
         }
     }
 
     // Return the size of your dataset (invoked by the layout manager)
-    override fun getItemCount() :Int {
+    override fun getItemCount(): Int {
         println(">>>> Dataset size: ${dataSet.size}")
         return dataSet.size
     }
