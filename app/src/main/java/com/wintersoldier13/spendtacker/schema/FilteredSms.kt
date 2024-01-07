@@ -9,4 +9,5 @@ object FilteredSms : BaseColumns {
     const val COLUMN_NAME_YEAR = "YEAR";
     const val COLUMN_NAME_BODY = "BODY";
     const val COLUMN_NAME_SENDER = "SENDER";
+    const val COLUMN_NAME_AMOUNT = "AMOUNT";
 }

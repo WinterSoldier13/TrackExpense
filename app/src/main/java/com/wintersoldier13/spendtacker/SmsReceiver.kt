@@ -24,6 +24,7 @@ class SmsReceiver : BroadcastReceiver() {
             for (smsMessage: SmsMessage in Telephony.Sms.Intents.getMessagesFromIntent(intent)) {
                 val body = smsMessage.messageBody
 //                TODO : Filter out only the transaction messages
+//                TODO : Extact the amount
                 val currentDate = LocalDate.now()
                 val date = currentDate.dayOfMonth
                 val month = currentDate.monthValue

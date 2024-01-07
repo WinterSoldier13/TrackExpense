@@ -7,6 +7,10 @@
     <string name="homepage_button_view_expense_by_month">View all of expense by month</string>
     <!--    Strings used for untracked_expenses-->
     <string name="untracked_expenses_textview_description">Let\'s Manage your untagged expenses!</string>
+    <!--    Strings used for untracked_expenses_item-->
+    <string name="untracked_expenses_item_textview_sms_body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
+    <string name="untracked_expenses_item_textview_date">13\-08\-2022</string>
+    <string name="untracked_expenses_item_textview_amount">Rs. 1,50,321</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>

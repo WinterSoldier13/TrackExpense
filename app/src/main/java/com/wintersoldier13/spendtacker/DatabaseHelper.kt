@@ -51,7 +51,8 @@ class DatabaseHelper(context: Context) :
                 "${FilteredSms.COLUMN_NAME_MONTH} INTEGER," +
                 "${FilteredSms.COLUMN_NAME_YEAR} INTEGER," +
                 "${FilteredSms.COLUMN_NAME_SENDER} TEXT," +
-                "${FilteredSms.COLUMN_NAME_BODY} TEXT" +
+                "${FilteredSms.COLUMN_NAME_BODY} TEXT," +
+                "${FilteredSms.COLUMN_NAME_AMOUNT} INTEGER" +
                 ")";
     }
 
