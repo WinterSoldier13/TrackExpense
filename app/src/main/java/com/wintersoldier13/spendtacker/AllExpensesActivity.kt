@@ -8,4 +8,12 @@ class AllExpensesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_all_expenses)
     }
+
+    class ExpenseItem(
+        var date : String,
+        var transactionReason: String,
+        var amount: Double,
+        var tag: String,
+        var isCreditCardExpense: Boolean
+    )
 }

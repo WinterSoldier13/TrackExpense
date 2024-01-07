@@ -52,7 +52,6 @@ class UntaggedSmsRecyclerViewCustomAdapter(
         viewHolder.untrackedExpenseAmount.text = "Rs. ${dataSet[position].amount}"
 
         viewHolder.itemView.setOnClickListener {
-//            TODO : Handle onClick with a new event
             val intent: Intent = Intent(viewHolder.itemView.context, AssignTagActivity::class.java)
             intent.putExtra("sms_id", dataSet[position].sms_id)
 
