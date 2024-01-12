@@ -24,6 +24,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewExpenseByMonth: Button
     private lateinit var viewUntaggedExpense: Button
     private lateinit var viewActiveRegex: Button
+    private lateinit var recordTransactionBt : Button
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -33,15 +34,26 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         viewAllExpense = findViewById(R.id.homepage_button_view_all_expenses)
+        recordTransactionBt = findViewById(R.id.homepage_button_record_transaction)
         viewExpenseByMonth = findViewById(R.id.homepage_button_view_monthly_expense)
         viewUntaggedExpense = findViewById(R.id.homepage_button_view_untagged_expenses)
         viewActiveRegex = findViewById(R.id.homepage_button_view_active_regex)
 
         val untaggedExpenseActivityIntent: Intent =
             Intent(this, UntrackedExpensesListActivity::class.java)
+        val allExpensesActivityIntent = Intent(this, AllExpensesActivity::class.java)
+        val recordTransactionIntent = Intent(this, RecordTransactionActivity::class.java)
 
         viewUntaggedExpense.setOnClickListener {
             startActivity(untaggedExpenseActivityIntent)
+        }
+
+        viewAllExpense.setOnClickListener {
+            startActivity(allExpensesActivityIntent)
+        }
+
+        recordTransactionBt.setOnClickListener {
+           startActivity(recordTransactionIntent)
         }
     }
 

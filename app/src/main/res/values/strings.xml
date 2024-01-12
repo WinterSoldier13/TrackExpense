@@ -17,6 +17,8 @@
     <!--    String used for assign_tag activity-->
     <string name="assign_tag_textview_description">Transaction Overview</string>
     <string name="assign_tag_edittext_reason_hint">Enter a reason for this transaction</string>
+    <!--    Strings for record transaction activity-->
+    <string name="record_transaction_textview_description">Record a Transaction!</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>

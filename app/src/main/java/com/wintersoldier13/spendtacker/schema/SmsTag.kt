@@ -9,4 +9,7 @@ object SmsTag : BaseColumns {
    const val COLUMN_NAME_EXPLANATION = "EXPLANATION";
    const val COLUMN_NAME_UPDATED_AMOUNT = "UPDATED_AMT";
    const val COLUMN_NAME_IS_CREDIT_CARD = "CREDIT_CARD";
+   const val COLUMN_NAME_DAY = "DAY"
+   const val COLUMN_NAME_MONTH = "MONTH"
+   const val COLUMN_NAME_YEAR = "YEAR"
 }

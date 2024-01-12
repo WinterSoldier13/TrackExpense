@@ -2,7 +2,6 @@ package com.wintersoldier13.spendtacker
 
 import android.annotation.SuppressLint
 import android.content.ContentValues
-import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -71,7 +70,6 @@ class AssignTagActivity : AppCompatActivity() {
 
 //        on click button on delete
         deleteBt.setOnClickListener {
-//            TODO implement delete from db
             val selection = "_id = $smsId"
             val deletedRows = writeableDb.delete(FilteredSms.TABLE_NAME, selection, null)
             println("Deleted row: $deletedRows from ${FilteredSms.TABLE_NAME}")
@@ -81,7 +79,11 @@ class AssignTagActivity : AppCompatActivity() {
         saveBt.setOnClickListener {
             if (transactionReasonEt.text.toString() == "") {
                 Toast.makeText(this, "Please specify a reason", Toast.LENGTH_SHORT).show()
-            } else {
+            }
+            else if(amountEt.text.toString().toInt() == 0){
+                Toast.makeText(this, "Amount cannot be zero", Toast.LENGTH_SHORT).show()
+            }
+            else {
                 val values = ContentValues().apply {
                     put(SmsTag.COLUMN_NAME_SMS_ID, smsId)
                     put(SmsTag.COLUMN_NAME_TAG, tagSpinner.selectedItem.toString())
@@ -89,16 +91,24 @@ class AssignTagActivity : AppCompatActivity() {
                     put(SmsTag.COLUMN_NAME_UPDATED_AMOUNT, amountEt.text.toString().toDouble())
                     put(
                         SmsTag.COLUMN_NAME_IS_CREDIT_CARD,
-                        if (tagSpinner.selectedItem.toString() == "yes") 1 else 0
+                        if (isCreditCardSpinner.selectedItem.toString() == "yes") 1 else 0
                     )
+                    put(SmsTag.COLUMN_NAME_DAY, transactionSms.day)
+                    put(SmsTag.COLUMN_NAME_MONTH, transactionSms.month)
+                    put(SmsTag.COLUMN_NAME_YEAR, transactionSms.year)
                 }
 
                 val rowId = writeableDb.insert(SmsTag.TABLE_NAME, null, values)
                 println("Inserted into SmsTag table with rowId: $rowId")
+
+//                removed the tagged element from this database
+                val selection = "_id = $smsId"
+                val deletedRows = writeableDb.delete(FilteredSms.TABLE_NAME, selection, null)
+                println("Deleted row: $deletedRows from ${FilteredSms.TABLE_NAME}")
+                finish()
+
             }
-
         }
-
     }
 
     fun String.toEditable(): Editable = Editable.Factory.getInstance().newEditable(this)

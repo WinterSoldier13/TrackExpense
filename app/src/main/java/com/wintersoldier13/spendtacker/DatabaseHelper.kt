@@ -62,7 +62,10 @@ class DatabaseHelper(context: Context) :
                 "${SmsTag.COLUMN_NAME_TAG} TEXT," +
                 "${SmsTag.COLUMN_NAME_EXPLANATION} TEXT," +
                 "${SmsTag.COLUMN_NAME_UPDATED_AMOUNT} REAL," +
-                "${SmsTag.COLUMN_NAME_IS_CREDIT_CARD} INTEGER" +
+                "${SmsTag.COLUMN_NAME_IS_CREDIT_CARD} INTEGER," +
+                "${SmsTag.COLUMN_NAME_DAY} INTEGER," +
+                "${SmsTag.COLUMN_NAME_MONTH} INTEGER," +
+                "${SmsTag.COLUMN_NAME_YEAR} INTEGER" +
                 ")";
     }
 

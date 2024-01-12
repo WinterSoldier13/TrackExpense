@@ -48,13 +48,18 @@ class AllExpensesRecyclerViewCustomAdapter(
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
 
-        println("Setting onBindViewHolder ${dataSet[position].date}")
-        viewHolder.expenseDateTv.text = dataSet[position].date;
+        val date = "${dataSet[position].day}/${dataSet[position].month}/${dataSet[position].year}"
+        viewHolder.expenseDateTv.text = date;
         viewHolder.expenseReasonTv.text = dataSet[position].transactionReason;
         viewHolder.amountTv.text = dataSet[position].amount.toString()
         viewHolder.tagTv.text = dataSet[position].tag
-        viewHolder.isCreditCardTv.text = if(dataSet[position].isCreditCardExpense) "yes" else "no"
+        viewHolder.isCreditCardTv.text = if(dataSet[position].isCreditCardExpense == 1) "yes" else "no"
 
+        viewHolder.itemView.setOnClickListener {
+            val recordTransactionIntent = Intent(viewHolder.itemView.context, RecordTransactionActivity::class.java)
+            recordTransactionIntent.putExtra("row_id", dataSet[position].id)
+            viewHolder.itemView.context.startActivity(recordTransactionIntent)
+        }
     }
 
     // Return the size of your dataset (invoked by the layout manager)

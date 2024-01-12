@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat.getSystemService
+import com.wintersoldier13.spendtacker.data.TargetSms
 import com.wintersoldier13.spendtacker.schema.FilteredSms
 import java.time.LocalDate
 
@@ -30,35 +31,37 @@ class SmsReceiver : BroadcastReceiver() {
             var sender = "";
 
             for (smsMessage: SmsMessage in Telephony.Sms.Intents.getMessagesFromIntent(intent)) {
-//                TODO : Filter out only the transaction messages
                 body += smsMessage.messageBody
                 sender = smsMessage.originatingAddress!!;
             }
+            val transactionType = TargetSms.isThisTransactional(body)
+            if(transactionType == "") return;
 //                TODO : Extract the amount
-                val amount = Random.nextInt(100, 1000)
-                val db = DatabaseHelper(context!!).writableDatabase
+            val amount = 0
+            val db = DatabaseHelper(context!!).writableDatabase
 
-                val values = ContentValues().apply {
-                    put(FilteredSms.COLUMN_NAME_DAY, date)
-                    put(FilteredSms.COLUMN_NAME_MONTH, month)
-                    put(FilteredSms.COLUMN_NAME_YEAR, year)
-                    put(FilteredSms.COLUMN_NAME_SENDER, sender)
-                    put(FilteredSms.COLUMN_NAME_BODY, body)
-                    put(FilteredSms.COLUMN_NAME_AMOUNT, amount)
-                }
+            val values = ContentValues().apply {
+                put(FilteredSms.COLUMN_NAME_DAY, date)
+                put(FilteredSms.COLUMN_NAME_MONTH, month)
+                put(FilteredSms.COLUMN_NAME_YEAR, year)
+                put(FilteredSms.COLUMN_NAME_SENDER, sender)
+                put(FilteredSms.COLUMN_NAME_BODY, body)
+                put(FilteredSms.COLUMN_NAME_AMOUNT, amount)
+            }
 
 //                insert a new row into the database
-                val newRowId = db?.insert(FilteredSms.TABLE_NAME, null, values)
-                println("INFO: >><><><><><><>> Inserted with $newRowId ")
+            val newRowId = db?.insert(FilteredSms.TABLE_NAME, null, values)
+            println("INFO: >><><><><><><>> Inserted with $newRowId ")
 //                Notify the user to add information about the transaction
-                val notificationManager = createNotificationChannel(context)
-                val notification = NotificationCompat.Builder(context, "SpendTrackerNotification")
-                    .setContentTitle("Woah! is that money that I smell")
-                    .setContentText("So you burning money again, anyway update info NOW")
-                    .setPriority(NotificationCompat.PRIORITY_HIGH)
-                    .setSmallIcon(R.drawable.ic_launcher_foreground)
-                    .build()
-                notificationManager.notify(1, notification)
+            val notificationManager = createNotificationChannel(context)
+            val notification = NotificationCompat.Builder(context, "SpendTrackerNotification")
+                .setContentTitle("Woah! is that money that I smell")
+                .setContentText("So you burning money again, anyway update info NOW")
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .build()
+            notificationManager.notify(1, notification)
+//            TODO: @wintersoldier13 - handle onclick on Notifications
 
         }
     }
