@@ -1,12 +1,12 @@
 package com.wintersoldier13.spendtacker
 
+import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.content.ContentValues
 import android.database.sqlite.SQLiteDatabase
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.BaseColumns
-import android.provider.Telephony.Sms
 import android.text.Editable
 import android.widget.ArrayAdapter
 import android.widget.Button
@@ -16,42 +16,35 @@ import android.widget.TextView
 import android.widget.Toast
 import com.wintersoldier13.spendtacker.data.KnownTags
 import com.wintersoldier13.spendtacker.schema.SmsTag
-import java.text.SimpleDateFormat
-import java.time.temporal.TemporalAmount
 import java.util.Calendar
 
-class RecordTransactionActivity : AppCompatActivity() {
+class UpdateTransaction : AppCompatActivity() {
     private lateinit var dateEt: EditText
     private lateinit var amountEt: EditText
-    private lateinit var transactionReason: EditText
+    private lateinit var transactionReasonEt: EditText
     private lateinit var tagSpinner: Spinner
     private lateinit var isCreditCardSpinner: Spinner
     private lateinit var deleteBt: Button
     private lateinit var addBt: Button
     private lateinit var headingTv: TextView
     private lateinit var writeableDb: SQLiteDatabase
-    private lateinit var readableDb: SQLiteDatabase
+
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_record_transaction)
+        setContentView(R.layout.activity_update_transaction)
 
-        dateEt = findViewById(R.id.record_transaction_edittext_date)
-        amountEt = findViewById(R.id.record_transaction_edittext_transaction_amount)
-        transactionReason = findViewById(R.id.record_transaction_edittext_transaction_explanation)
-        tagSpinner = findViewById(R.id.record_transaction_spinner_tag)
-        isCreditCardSpinner = findViewById(R.id.record_transaction_spinner_credit_card)
-        deleteBt = findViewById(R.id.record_transaction_button_delete)
-        addBt = findViewById(R.id.record_transaction_button_add)
-        headingTv = findViewById(R.id.record_transaction_textview_heading)
+
+        dateEt = findViewById(R.id.update_transaction_edittext_date)
+        amountEt = findViewById(R.id.update_transaction_edittext_transaction_amount)
+        transactionReasonEt = findViewById(R.id.update_transaction_edittext_transaction_explanation)
+        tagSpinner = findViewById(R.id.update_transaction_spinner_tag)
+        isCreditCardSpinner = findViewById(R.id.update_transaction_spinner_credit_card)
+        deleteBt = findViewById(R.id.update_transaction_button_delete)
+        addBt = findViewById(R.id.update_transaction_button_add)
+        headingTv = findViewById(R.id.update_transaction_textview_heading)
         writeableDb = DatabaseHelper(this).writableDatabase
-        readableDb = DatabaseHelper(this).readableDatabase
-        recordFlow()
 
-    }
-
-    private fun recordFlow() {
-
-        //        Populate the credit card spinner
         val isCreditCardSpinnerOptions = ArrayList<String>();
         isCreditCardSpinnerOptions.add("yes")
         isCreditCardSpinnerOptions.add("no")
@@ -64,8 +57,38 @@ class RecordTransactionActivity : AppCompatActivity() {
         isCreditCardSpinner.adapter = arrayAdapter
 
 //        Populate the tag spinner
-        tagSpinner.adapter =
-            ArrayAdapter(this, android.R.layout.simple_spinner_item, KnownTags.getTags())
+        val tagSpinnerAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, KnownTags.getTags())
+        tagSpinner.adapter = tagSpinnerAdapter
+
+
+//        get the data from the intent that called this activity
+        val date = intent.extras?.getString("date")
+        val amount = intent.extras?.getDouble("amount")?.toInt()
+        val transactionReason = intent.extras?.getString("transaction_reason")
+        val transactionTag = intent.extras?.getString("tag")
+        val isCC = intent.extras?.getString("isCC")
+        val smsId = intent.extras?.getInt("row_id")
+
+//        populate fields with old data except the spinners
+        dateEt.text = date!!.toEditable()
+        amountEt.text = amount.toString().toEditable()
+        transactionReasonEt.text = transactionReason.toString().toEditable()
+        tagSpinner.setSelection(tagSpinnerAdapter.getPosition(transactionTag))
+        isCreditCardSpinner.setSelection(arrayAdapter.getPosition(isCC))
+
+
+        deleteBt.setOnClickListener {
+//           delete the entry from the db
+            try {
+                writeableDb.delete(SmsTag.TABLE_NAME, "${BaseColumns._ID}=$smsId", null)
+                Toast.makeText(this, "Item deleted", Toast.LENGTH_SHORT).show()
+                finish()
+            } catch (e: Exception) {
+                Toast.makeText(this, "Something went wrong while deleting", Toast.LENGTH_SHORT)
+                    .show()
+            }
+        }
+
 
         dateEt.setOnClickListener {
             val c = Calendar.getInstance()
@@ -94,18 +117,13 @@ class RecordTransactionActivity : AppCompatActivity() {
             datePickerDialog.show()
         }
 
-        deleteBt.setOnClickListener {
-            Toast.makeText(this, "Record Payment operation cancelled", Toast.LENGTH_SHORT).show()
-            finish()
-        }
-
         addBt.setOnClickListener {
 
             if (dateEt.text.toString() == "") {
                 Toast.makeText(this, "enter date", Toast.LENGTH_SHORT).show()
             } else if (amountEt.text.toString() == "" || amountEt.text.toString().toInt() == 0) {
                 Toast.makeText(this, "amount cannot be null/zero", Toast.LENGTH_SHORT).show()
-            } else if (transactionReason.text.toString() == "") {
+            } else if (transactionReasonEt.text.toString() == "") {
                 Toast.makeText(this, "Enter a transaction explanation", Toast.LENGTH_SHORT).show()
             } else {
                 val date = dateEt.text.toString()
@@ -113,10 +131,11 @@ class RecordTransactionActivity : AppCompatActivity() {
                 val month = date.substring(date.indexOf('/') + 1, date.lastIndexOf('/')).toInt()
                 val year = date.substring(date.lastIndexOf('/') + 1).toInt()
                 val amount = amountEt.text.toString().toDouble()
-                val reason = transactionReason.text.toString()
+                val reason = transactionReasonEt.text.toString()
                 val tag = tagSpinner.selectedItem.toString()
                 val isCreditCard =
                     if (isCreditCardSpinner.selectedItem.toString() == "yes") 1 else 0
+
 
                 val values = ContentValues().apply {
                     put(SmsTag.COLUMN_NAME_SMS_ID, 0)
@@ -131,14 +150,13 @@ class RecordTransactionActivity : AppCompatActivity() {
                     put(SmsTag.COLUMN_NAME_YEAR, year)
                 }
 
-                val rowId = writeableDb.insert(SmsTag.TABLE_NAME, null, values)
-                if (rowId >= 0) {
-                    Toast.makeText(this, "added transaction details to DB", Toast.LENGTH_SHORT)
-                        .show()
-                }
-                println("Inserted into SmsTag table with rowId: $rowId")
+                writeableDb.update(SmsTag.TABLE_NAME, values, "${BaseColumns._ID}=$smsId", null)
+
                 finish()
             }
         }
+
     }
+
+    fun String.toEditable(): Editable = Editable.Factory.getInstance().newEditable(this)
 }

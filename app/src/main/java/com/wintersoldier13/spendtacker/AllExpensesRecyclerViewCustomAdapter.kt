@@ -17,11 +17,12 @@ class AllExpensesRecyclerViewCustomAdapter(
      * (custom ViewHolder)
      */
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val expenseDateTv : TextView
-        val expenseReasonTv : TextView
-        val amountTv : TextView
-        val tagTv : TextView
-        val isCreditCardTv : TextView
+        val expenseDateTv: TextView
+        val expenseReasonTv: TextView
+        val amountTv: TextView
+        val tagTv: TextView
+        val isCreditCardTv: TextView
+
         init {
             // Define click listener for the ViewHolder's View
             expenseDateTv = view.findViewById(R.id.expense_item_textview_date)
@@ -53,12 +54,26 @@ class AllExpensesRecyclerViewCustomAdapter(
         viewHolder.expenseReasonTv.text = dataSet[position].transactionReason;
         viewHolder.amountTv.text = dataSet[position].amount.toString()
         viewHolder.tagTv.text = dataSet[position].tag
-        viewHolder.isCreditCardTv.text = if(dataSet[position].isCreditCardExpense == 1) "yes" else "no"
+        viewHolder.isCreditCardTv.text =
+            if (dataSet[position].isCreditCardExpense == 1) "yes" else "no"
 
         viewHolder.itemView.setOnClickListener {
-            val recordTransactionIntent = Intent(viewHolder.itemView.context, RecordTransactionActivity::class.java)
-            recordTransactionIntent.putExtra("row_id", dataSet[position].id)
-            viewHolder.itemView.context.startActivity(recordTransactionIntent)
+            val updateTransactionIntent =
+                Intent(viewHolder.itemView.context, UpdateTransaction::class.java)
+            updateTransactionIntent.putExtra("date", date)
+            updateTransactionIntent.putExtra("amount", dataSet[position].amount)
+            updateTransactionIntent.putExtra(
+                "transaction_reason",
+                dataSet[position].transactionReason
+            )
+            updateTransactionIntent.putExtra("tag", dataSet[position].tag)
+            updateTransactionIntent.putExtra(
+                "isCC",
+                if (dataSet[position].isCreditCardExpense == 1) "yes" else "no"
+            )
+            updateTransactionIntent.putExtra("row_id", dataSet[position].id)
+
+            viewHolder.itemView.context.startActivity(updateTransactionIntent)
         }
     }
 

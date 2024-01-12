@@ -15,10 +15,14 @@
         android:theme="@style/Theme.SpendTacker"
         tools:targetApi="31">
         <activity
-            android:name=".RecordTransactionActivity"
+            android:name=".UpdateTransaction"
             android:exported="false"
             android:theme="@style/Theme.SpendTacker.NoActionBar"
             />
+        <activity
+            android:name=".RecordTransactionActivity"
+            android:exported="false"
+            android:theme="@style/Theme.SpendTacker.NoActionBar" />
         <activity
             android:name=".AllExpensesActivity"
             android:exported="false"

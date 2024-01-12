@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:background="@color/black"
+tools:context=".AssignTagActivity">
+
+<TextView
+    android:id="@+id/update_transaction_textview_heading"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Update the transaction"
+    android:textColor="@color/white"
+    android:textSize="32sp"
+    android:textStyle="bold"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.494"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+<LinearLayout
+    android:id="@+id/update_transaction_linear_layout_date"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/update_transaction_textview_heading">
+
+    <TextView
+        android:layout_width="110dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="25dp"
+        android:text="Date"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/update_transaction_edittext_date"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="25sp"
+        android:layout_weight="1"
+        android:autofillHints=""
+        android:background="@drawable/white_border"
+        android:hint="Enter Date"
+        android:clickable="false"
+        android:cursorVisible="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:textColor="@color/white"
+        android:textColorHint="#A1A1A1"
+        android:textSize="18sp" />
+</LinearLayout>
+
+<LinearLayout
+    android:id="@+id/update_transaction_linear_layout_amount"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/update_transaction_linear_layout_date">
+
+    <TextView
+        android:layout_width="110dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="25dp"
+        android:text="Amount: "
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/update_transaction_edittext_transaction_amount"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:background="@drawable/white_border"
+        android:layout_marginTop="25sp"
+        android:layout_weight="1"
+        android:autofillHints=""
+        android:hint="Rs. 20,000"
+        android:inputType="number"
+        android:textColor="@color/white"
+        android:textColorHint="#A1A1A1"
+        android:textSize="18sp" />
+</LinearLayout>
+
+<EditText
+    android:id="@+id/update_transaction_edittext_transaction_explanation"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:layout_margin="10dp"
+    android:background="@drawable/white_border"
+    android:hint="@string/assign_tag_edittext_reason_hint"
+    android:singleLine="true"
+    android:textColor="@color/white"
+    android:textColorHint="#A1A1A1"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/update_transaction_linear_layout_amount" />
+
+<LinearLayout
+    android:id="@+id/assign_tag_linear_layout_tag"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:orientation="horizontal"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/update_transaction_edittext_transaction_explanation">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Tag:"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <Spinner
+        android:id="@+id/update_transaction_spinner_tag"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/white_border" />
+
+
+</LinearLayout>
+
+<LinearLayout
+    android:id="@+id/assign_tag_linear_layout_tag_cc"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:orientation="horizontal"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/assign_tag_linear_layout_tag">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Was it your credit card?"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <Spinner
+        android:id="@+id/update_transaction_spinner_credit_card"
+        android:layout_width="wrap_content"
+        android:background="@drawable/white_border"
+        android:layout_height="30dp"
+        android:layout_margin="10dp" />
+
+</LinearLayout>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/assign_tag_linear_layout_tag_cc">
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/update_transaction_button_delete"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_margin="5dp"
+        android:layout_weight="0.2"
+        android:background="#D10000"
+        android:text="Delete"
+        android:textColor="@color/white" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/update_transaction_button_add"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_margin="5dp"
+        android:layout_weight="1"
+        android:background="@color/teal_700"
+        android:text="Add expense"
+        android:textColor="@color/white" />
+</LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
