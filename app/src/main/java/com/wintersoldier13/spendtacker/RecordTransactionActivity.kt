@@ -45,11 +45,11 @@ class RecordTransactionActivity : AppCompatActivity() {
         headingTv = findViewById(R.id.record_transaction_textview_heading)
         writeableDb = DatabaseHelper(this).writableDatabase
         readableDb = DatabaseHelper(this).readableDatabase
-            recordFlow()
+        recordFlow()
 
     }
 
-    private fun updateFlow(rowId : Int) {
+    private fun updateFlow(rowId: Int) {
         headingTv.text = "Update your Transaction"
 
         dateEt.setOnClickListener {
@@ -82,15 +82,17 @@ class RecordTransactionActivity : AppCompatActivity() {
         val query = "SELECT * FROM ${SmsTag.TABLE_NAME} WHERE ${BaseColumns._ID}=$rowId"
         val cursor = readableDb.rawQuery(query, null)
 
-        with(cursor){
-            while (moveToNext()){
+        with(cursor) {
+            while (moveToNext()) {
                 val day = getInt(cursor.getColumnIndexOrThrow(SmsTag.COLUMN_NAME_DAY))
                 val month = getInt(cursor.getColumnIndexOrThrow(SmsTag.COLUMN_NAME_MONTH))
                 val year = getInt(cursor.getColumnIndexOrThrow(SmsTag.COLUMN_NAME_YEAR))
-                val amount = getDouble(cursor.getColumnIndexOrThrow(SmsTag.COLUMN_NAME_UPDATED_AMOUNT))
+                val amount =
+                    getDouble(cursor.getColumnIndexOrThrow(SmsTag.COLUMN_NAME_UPDATED_AMOUNT))
                 val reason = getString(cursor.getColumnIndexOrThrow(SmsTag.COLUMN_NAME_EXPLANATION))
                 val tag = getString(cursor.getColumnIndexOrThrow(SmsTag.COLUMN_NAME_TAG))
-                val isCreditCard = getInt(cursor.getColumnIndexOrThrow(SmsTag.COLUMN_NAME_IS_CREDIT_CARD))
+                val isCreditCard =
+                    getInt(cursor.getColumnIndexOrThrow(SmsTag.COLUMN_NAME_IS_CREDIT_CARD))
 
                 dateEt.text = "${day}/${month}/${year}".toEditable()
                 amountEt.text = amount.toString().toEditable()
@@ -186,6 +188,7 @@ class RecordTransactionActivity : AppCompatActivity() {
         }
 
         deleteBt.setOnClickListener {
+            Toast.makeText(this, "Record Payment operation cancelled", Toast.LENGTH_SHORT).show()
             finish()
         }
 
@@ -222,6 +225,10 @@ class RecordTransactionActivity : AppCompatActivity() {
                 }
 
                 val rowId = writeableDb.insert(SmsTag.TABLE_NAME, null, values)
+                if (rowId >= 0) {
+                    Toast.makeText(this, "added transaction details to DB", Toast.LENGTH_SHORT)
+                        .show()
+                }
                 println("Inserted into SmsTag table with rowId: $rowId")
                 finish()
             }
