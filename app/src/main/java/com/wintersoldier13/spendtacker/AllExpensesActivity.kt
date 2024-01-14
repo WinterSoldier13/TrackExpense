@@ -47,7 +47,8 @@ class AllExpensesActivity : AppCompatActivity() {
     private fun getTaggedSms(): ArrayList<ExpenseItem> {
         val expenses = ArrayList<ExpenseItem>();
         val db = DatabaseHelper(this).readableDatabase
-        val query = "SELECT * FROM ${SmsTag.TABLE_NAME}"
+        val query = "SELECT * FROM ${SmsTag.TABLE_NAME} " +
+        "ORDER BY ${SmsTag.COLUMN_NAME_YEAR} DESC, ${SmsTag.COLUMN_NAME_MONTH} DESC, ${SmsTag.COLUMN_NAME_DAY} DESC"
 
         println(query)
         val cursor = db.rawQuery(query, null)

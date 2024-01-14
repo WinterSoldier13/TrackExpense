@@ -17,26 +17,32 @@
         <activity
             android:name=".UpdateTransaction"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.SpendTacker.NoActionBar"
             />
         <activity
             android:name=".RecordTransactionActivity"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.SpendTacker.NoActionBar" />
         <activity
             android:name=".AllExpensesActivity"
+            android:screenOrientation="portrait"
             android:exported="false"
             android:theme="@style/Theme.SpendTacker.NoActionBar" />
         <activity
             android:name=".AssignTagActivity"
+            android:screenOrientation="portrait"
             android:exported="false"
             android:theme="@style/Theme.SpendTacker.NoActionBar" />
         <activity
             android:name=".UntrackedExpensesListActivity"
+            android:screenOrientation="portrait"
             android:exported="false"
             android:theme="@style/Theme.SpendTacker.NoActionBar" />
         <activity
             android:name=".MainActivity"
+            android:screenOrientation="portrait"
             android:exported="true"
             android:theme="@style/Theme.SpendTacker.NoActionBar">
             <intent-filter>

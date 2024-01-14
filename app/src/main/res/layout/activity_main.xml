@@ -7,91 +7,296 @@
     android:background="@color/black"
     tools:context=".MainActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textview_homepage_description"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/textview_homepage_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="36dp"
+                android:text="@string/homepage_textview_description"
+                android:textColor="@color/white"
+                android:textSize="44sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/homepage_button_record_transaction">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/homepage_button_view_all_expenses"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:background="@color/button_color"
+                    android:ellipsize="none"
+                    android:text="@string/homepage_button_view_all_expense"
+                    android:textColor="@color/white" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/homepage_button_view_monthly_expense"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:background="@color/button_color"
+                    android:text="@string/homepage_button_view_expense_by_month"
+                    android:textColor="@color/white" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/homepage_button_view_untagged_expenses"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="@string/homepage_button_view_untagged_expenses"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+
+            <Button
+                android:id="@+id/homepage_button_record_transaction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="10dp"
+                android:text="@string/homepage_button_record_transaction"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textview_homepage_description" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="36dp"
-            android:layout_marginStart="10dp"
-            android:text="@string/homepage_textview_description"
-            android:textColor="@color/white"
-            android:textSize="44sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_marginTop="10dp">
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/homepage_button_record_transaction">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/homepage_button_view_all_expenses"
-                android:layout_width="0dp"
-                android:layout_height="60dp"
-                android:layout_margin="3dp"
-                android:layout_weight="1"
-                android:background="@color/button_green"
-                android:ellipsize="none"
-                android:text="@string/homepage_button_view_all_expense"
-                android:textColor="@color/white" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal">
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/homepage_button_view_monthly_expense"
-                android:layout_width="0dp"
-                android:layout_height="60dp"
-                android:layout_margin="3dp"
-                android:layout_weight="1"
-                android:background="@color/button_green"
-                android:text="@string/homepage_button_view_expense_by_month"
-                android:textColor="@color/white" />
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
 
-        </LinearLayout>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Spent Today"
+                            android:textColor="@color/white" />
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/homepage_button_view_untagged_expenses"
-            android:id="@+id/homepage_button_view_untagged_expenses"
-            android:layout_margin="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+                        <TextView
+                            android:id="@+id/homepage_textview_spent_today"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="20,000"
+                            android:textColor="@color/white"
+                            android:textSize="22sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/homepage_button_view_active_regex"
-            android:layout_margin="10dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:text="@string/homepage_button_view_active_regex"
-            app:layout_constraintTop_toBottomOf="@+id/homepage_button_view_untagged_expenses"
-            />
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
 
-        <Button
-            android:id="@+id/homepage_button_record_transaction"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:text="@string/homepage_button_record_transaction"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textview_homepage_description" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Money burned this month"
+                            android:textColor="@color/white" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                        <TextView
+                            android:id="@+id/homepage_textview_spent_this_month"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="1,10,000"
+                            android:textColor="@color/white"
+                            android:textSize="22sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal">
+
+                    <!--Ui component for our pie chart-->
+                    <com.github.mikephil.charting.charts.PieChart
+                        android:id="@+id/homepage_piechart_monthly_expense"
+                        android:layout_width="match_parent"
+                        android:layout_height="350dp" />
+
+                    <LinearLayout
+                        android:id="@+id/homepage_linearlayout_piechart_labels"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:orientation="horizontal">
+
+                            <View
+                                android:id="@+id/homepage_graphlabel_item1_color"
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:background="@drawable/circle"
+                                android:backgroundTint="@color/red" />
+
+                            <TextView
+                                android:id="@+id/homepage_graphlabel_item1_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="10dp"
+                                android:text="item1"
+                                android:textColor="@color/white" />
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:orientation="horizontal">
+
+                            <View
+                                android:id="@+id/homepage_graphlabel_item2_color"
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:background="@drawable/circle"
+                                android:backgroundTint="@color/teal_700" />
+
+                            <TextView
+                                android:id="@+id/homepage_graphlabel_item2_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="10dp"
+                                android:text="item2"
+                                android:textColor="@color/white" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_margin="10dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <View
+                                android:id="@+id/homepage_graphlabel_item3_color"
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:background="@drawable/circle"
+                                android:backgroundTint="@color/yellow" />
+
+                            <TextView
+                                android:id="@+id/homepage_graphlabel_item3_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="10dp"
+                                android:text="item3"
+                                android:textColor="@color/white" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:orientation="horizontal">
+
+                            <View
+                                android:id="@+id/homepage_graphlabel_item4_color"
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:background="@drawable/circle"
+                                android:backgroundTint="@color/button_color" />
+
+                            <TextView
+                                android:id="@+id/homepage_graphlabel_item4_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="10dp"
+                                android:text="item4"
+                                android:textColor="@color/white" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:orientation="horizontal">
+
+                            <View
+                                android:id="@+id/homepage_graphlabel_item5_color"
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:background="@drawable/circle"
+                                android:backgroundTint="@color/purple_500" />
+
+                            <TextView
+                                android:id="@+id/homepage_graphlabel_item5_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="10dp"
+                                android:text="others"
+                                android:textColor="@color/white" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
